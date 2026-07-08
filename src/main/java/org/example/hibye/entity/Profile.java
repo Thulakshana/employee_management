@@ -17,7 +17,15 @@ public class Profile {
     @OneToOne
     @JoinColumn(name="user_id") private User users;
 
-    public Profile(){}
+    public Profile(String fullname,String department,int age,String idnumber,String email,String mobilenumber){
+
+        this.fullname = fullname;
+        this.department = department;
+        this.age = age;
+        this.idnumber = idnumber;
+        this.email = email;
+        this.mobilenumber = mobilenumber;
+    }
 
     public Long getid(){return id;}
     public void setid(Long id){this.id=id;}

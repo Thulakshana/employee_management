@@ -17,4 +17,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidPasswordException.class)public ResponseEntity<String>handleInvallidPasswordException(InvalidPasswordException ex){
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
+    @ExceptionHandler(InvalidProfileDetailException.class)
+    public ResponseEntity<String>handleInvalidProfileDetailsException(InvalidProfileDetailException ex){
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
 }
