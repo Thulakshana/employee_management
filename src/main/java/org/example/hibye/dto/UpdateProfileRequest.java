@@ -1,11 +1,6 @@
-package org.example.hibye.entity;
-import jakarta.persistence.*;
-@Entity
-@Table(name="employee_profile")
-public class Profile {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
+package org.example.hibye.dto;
 
+public class UpdateProfileRequest {
 
     private String fullname;
     private String department;
@@ -13,25 +8,6 @@ public class Profile {
     private String idnumber;
     private String email;
     private String mobilenumber;
-
-    @OneToOne
-    @JoinColumn(name="user_id") private User users;
-
-    public Profile(){}
-
-
-    public Profile(String fullname,String department,int age,String idnumber,String email,String mobilenumber){
-
-        this.fullname = fullname;
-        this.department = department;
-        this.age = age;
-        this.idnumber = idnumber;
-        this.email = email;
-        this.mobilenumber = mobilenumber;
-    }
-
-    public Long getid(){return id;}
-    public void setid(Long id){this.id=id;}
 
     public String getfullname(){return fullname;}
     public void setfullname(String full_name){this.fullname=full_name;}
@@ -50,10 +26,4 @@ public class Profile {
 
     public String getmobilenumber(){return mobilenumber;}
     public void setmobilenumber(String mobilenumber){this.mobilenumber=mobilenumber;}
-
-    public User getUsers(){return users;}
-    public void setUsers(User users){this.users=users;}
-
-
-
 }
