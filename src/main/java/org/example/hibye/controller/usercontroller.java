@@ -1,12 +1,9 @@
 package org.example.hibye.controller;
 
 
-import org.example.hibye.dto.LoginRequest;
-import org.example.hibye.dto.LoginResponse;
-import org.example.hibye.dto.SignupRequest;
+import org.example.hibye.dto.*;
 import org.example.hibye.entity.Profile;
 import org.example.hibye.entity.User;
-import org.example.hibye.dto.ProfileDetails;
 import org.example.hibye.security.JwtUtil;
 import org.example.hibye.service.userservice;
 import org.springframework.web.bind.annotation.*;
@@ -52,8 +49,72 @@ public class usercontroller {
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////
     @PostMapping("/add-profile")
-    public Profile addProfile(@RequestBody ProfileDetails request){
-        return service_file.AddDeials(request);
+    public Profile addProfile(
+
+            @RequestHeader(
+                    "Authorization")
+            String authHeader,
+
+            @RequestBody
+            ProfileDetails request){
+
+        String token =
+                authHeader.substring(7);
+
+        String username =
+                Jwt_util_file.extractusername(
+                        token);
+
+        User user =
+                service_file.findByUsername(
+                        username);
+
+        return service_file
+                .AddDeials(
+                        request,
+                        user);
+    }
+    ///////////////////////////////////////////////////////////////////////////////////
+    @PutMapping("/user-update")
+    public User updateuserdetails(@RequestHeader("Authorization")String authHeader, @RequestBody UpdateUserRequest requ){
+        String token=authHeader.substring(7);
+        String username=Jwt_util_file.extractusername(token);
+        User us=service_file.findByUsername(username);
+        return service_file
+                .updateuserdetails(
+                        us,
+                        requ);
+
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    @PutMapping("/update-profile")
+    public Profile updateProfile(
+
+            @RequestHeader("Authorization")
+            String authHeader,
+
+            @RequestBody
+            UpdateProfileRequest request){
+
+        String token =
+                authHeader.substring(7);
+
+        String username =
+                Jwt_util_file.extractusername(
+                        token);
+
+        User user =
+                service_file.findByUsername(
+                        username);
+
+        Profile profile =
+                service_file.getLoggeduserData(
+                        user);
+
+        return service_file
+                .updateprofiledetails(
+                        profile,
+                        request);
     }
 
 

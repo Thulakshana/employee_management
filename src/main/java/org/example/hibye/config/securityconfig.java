@@ -14,11 +14,24 @@ public class securityconfig {
         this.jwt_filter_file=jwt_filter_file;
     }
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception{
-        http.csrf(csrf->csrf.disable()).authorizeHttpRequests(auth->auth
-                .requestMatchers("/api/users/signup","/api/users/login" ,"/swagger-ui/**",
-                        "/v3/api-docs/**").permitAll().anyRequest().authenticated());
-    return http.build();
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http)
+            throws Exception {
+
+        http
+                .cors(cors -> {})
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/api/users/signup",
+                                "/api/users/login",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**")
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated());
+
+        return http.build();
     }
 
 }
